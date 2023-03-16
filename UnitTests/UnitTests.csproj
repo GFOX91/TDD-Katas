@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TDD Katas\TDD Katas.csproj" />
+  </ItemGroup>
+
 </Project>
