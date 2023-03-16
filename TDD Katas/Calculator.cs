@@ -15,6 +15,7 @@ public class Calculator
     ///     and the negative that was passed. If there are multiple negatives, show all of them 
     ///     in the exception message.
     /// </summary>
+    /// <see cref="https://osherove.com/tdd-kata-1/"/>
     public object Add(string numbers)
     {
         var delmiters = new List<char> {',', '\n'};
@@ -31,16 +32,7 @@ public class Calculator
             .Split(delmiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
             .Select(int.Parse);
 
-        var negativeNumbers = new List<int>();
-
-        // check for any negative numbers in the input string
-        foreach(var potentiallyNegativeNumber in splitNumbers)
-        {
-            if (potentiallyNegativeNumber < 0)
-            {
-                negativeNumbers.Add(potentiallyNegativeNumber);
-            }
-        }
+        var negativeNumbers = splitNumbers.Where(x => x < 0).ToArray();
 
         // If any are found, throw an exception
         if (negativeNumbers.Any())
