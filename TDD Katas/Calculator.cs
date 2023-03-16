@@ -23,28 +23,38 @@ public class Calculator
     ///     
     ///     7. Delimiters can be of any length with the following format: 
     ///     “//[delimiter]\n” for example: “//[***]\n1***2***3” should return 6
+    ///     
+    ///     8. Allow multiple delimiters like this: “//[delim1][delim2]\n” for example 
+    ///     “//[*][%]\n1*2%3” should return 6.
     /// </summary>
     /// <see cref="https://osherove.com/tdd-kata-1/"/>
     public object Add(string numbers)
     {
-        var delmiters = new List<string> {",", "\n" };
+        var delimiters = new List<string> {",", "\n" };
 
         if (numbers.StartsWith("//"))
         {
             var splitOnFirstNewLine = numbers.Split(new char[] { '\n' }, 2); // splits the input on the delimiter
-            var customDelimiter = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter
+            var customDelimiterString = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter
 
-            if (customDelimiter.StartsWith('[') && customDelimiter.EndsWith(']')) 
+            var splitDelimitersString = customDelimiterString.Replace("][", "]-["); // add delimiters between delimiters
+            var splitDelimiters = splitDelimitersString.Split('-'); // so we can split the delimiters into seperate strings
+
+            foreach (var delimiter in splitDelimiters)
             {
-                customDelimiter = customDelimiter.Split('[', ']')[1]; // extract customer delimiter from square brackets
-            }
+                var delmitorToAdd = delimiter;
+                if (delimiter.StartsWith('[') && delimiter.EndsWith(']'))
+                {
+                    delmitorToAdd = delimiter.Split('[', ']')[1]; // extract customer delimiter from square brackets
+                }
 
-            delmiters.Add(customDelimiter); // and add it to the delimiter list
-            numbers = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
+                delimiters.Add(delmitorToAdd); // and add it to the delimiter list
+                numbers = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
+            }
         }
 
         var splitNumbers = numbers
-            .Split(delmiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+            .Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
             .Select(int.Parse);
 
         var negativeNumbers = splitNumbers.Where(x => x < 0).ToArray();
