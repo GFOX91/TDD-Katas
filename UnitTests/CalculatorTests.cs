@@ -97,5 +97,20 @@ public class CalculatorTests
         // Assert
         result.Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData("//***\n1***2***3", 6)]
+    [InlineData("//****\n1****2****4", 7)]
+    public void Add_AddsNumbersUsingDelimiterOfAnyLength_WhenStringIsValid(string numbers, int expected)
+    {
+        // Arrange
+        var sut = new Calculator();
+
+        // Act
+        var result = sut.Add(numbers);
+
+        // Assert
+        result.Should().Be(expected);
+    }
 }
 
