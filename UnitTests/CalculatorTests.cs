@@ -116,7 +116,9 @@ public class CalculatorTests
     [Theory]
     [InlineData("//[*][%]\n1*2%3", 6)]
     [InlineData("//[*][%]\n1*2%4", 7)]
-    public void Add_AddsNumbersMultipleDelimiters_WhenStringIsValid(string numbers, int expected)
+    [InlineData("//[**][%%]\n1**2%%3", 6)]
+    [InlineData("//[**][%%]\n1**2%%4", 7)]
+    public void Add_AddsNumbersUsingMultipleDelimiters_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
         var sut = new Calculator();
