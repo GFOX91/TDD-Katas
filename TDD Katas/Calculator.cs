@@ -27,7 +27,7 @@ public class Calculator
     ///     8. Allow multiple delimiters like this: “//[delim1][delim2]\n” for example 
     ///     “//[*][%]\n1*2%3” should return 6.
     ///     
-    ///     9.make sure you can also handle multiple delimiters with length longer than 
+    ///     9. make sure you can also handle multiple delimiters with length longer than 
     ///     one char
     /// </summary>
     /// <see cref="https://osherove.com/tdd-kata-1/"/>
@@ -38,10 +38,10 @@ public class Calculator
         if (numbers.StartsWith("//"))
         {
             var splitOnFirstNewLine = numbers.Split(new char[] { '\n' }, 2); // splits the input on the delimiter
-            var customDelimiterString = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter
+            var customDelimitersString = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter(s)
 
-            var splitDelimitersString = customDelimiterString.Replace("][", "]-["); // add delimiters between delimiters
-            var splitDelimiters = splitDelimitersString.Split('-'); // so we can split the delimiters into seperate strings
+            var splitDelimitersString = customDelimitersString.Replace("][", "]-["); // add a seperator between delimiters
+            var splitDelimiters = splitDelimitersString.Split('-'); // so that we can split the delimiters into seperate strings
 
             foreach (var delimiter in splitDelimiters)
             {
