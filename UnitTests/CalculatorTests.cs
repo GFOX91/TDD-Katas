@@ -66,5 +66,20 @@ public class CalculatorTests
         // Assert
         result.Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData("1,2,-1", "-1")]
+    [InlineData("//;\n1;-2;-4", "-2,-4")]
+    public void Add_ShouldThrowAnException_WhenNegativeNumbersAreUsed(string numbers, string negativeNumbers)
+    {
+        // Arrange
+        var sut = new Calculator();
+
+        // Act
+        var result = () => sut.Add(numbers);
+
+        // Assert
+        result.Should().Throw<Exception>().WithMessage($"Negatives are not allowed: {negativeNumbers}");
+    }
 }
 
