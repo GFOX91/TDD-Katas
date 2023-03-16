@@ -99,8 +99,8 @@ public class CalculatorTests
     }
 
     [Theory]
-    [InlineData("//***\n1***2***3", 6)]
-    [InlineData("//****\n1****2****4", 7)]
+    [InlineData("//[***]\n1***2***3", 6)]
+    [InlineData("//[****]\n1****2****4", 7)]
     public void Add_AddsNumbersUsingDelimiterOfAnyLength_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange

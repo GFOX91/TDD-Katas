@@ -33,6 +33,12 @@ public class Calculator
         {
             var splitOnFirstNewLine = numbers.Split(new char[] { '\n' }, 2); // splits the input on the delimiter
             var customDelimiter = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter
+
+            if (customDelimiter.StartsWith('[') && customDelimiter.EndsWith(']')) 
+            {
+                customDelimiter = customDelimiter.Split('[', ']')[1]; // extract customer delimiter from square brackets
+            }
+
             delmiters.Add(customDelimiter); // and add it to the delimiter list
             numbers = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
         }
