@@ -81,5 +81,21 @@ public class CalculatorTests
         // Assert
         result.Should().Throw<Exception>().WithMessage($"Negatives are not allowed: {negativeNumbers}");
     }
+
+    [Theory]
+    [InlineData("1001", 0)]
+    [InlineData("1\n2,3000", 3)]
+    [InlineData("10\n20,30\n40,1002", 100)]
+    public void Add_AddsNumbersBiggerThan1000AreIgnored_WhenStringIsValid(string numbers, int expected)
+    {
+        // Arrange
+        var sut = new Calculator();
+
+        // Act
+        var result = sut.Add(numbers);
+
+        // Assert
+        result.Should().Be(expected);
+    }
 }
 

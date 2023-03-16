@@ -14,6 +14,7 @@ public class Calculator
     ///     5. Calling Add with a negative number will throw an exception “negatives not allowed” 
     ///     and the negative that was passed. If there are multiple negatives, show all of them 
     ///     in the exception message.
+    ///     6.Numbers bigger than 1000 should be ignored, so adding 2 + 1001 = 2
     /// </summary>
     /// <see cref="https://osherove.com/tdd-kata-1/"/>
     public object Add(string numbers)
@@ -39,6 +40,9 @@ public class Calculator
         {
             throw new Exception($"Negatives are not allowed: {string.Join(",", negativeNumbers)}");
         }
+
+        // Remove numbers bigger then 1000
+        splitNumbers = splitNumbers.Where(x => x < 1001).ToArray();
 
         return splitNumbers.Sum();
     }
