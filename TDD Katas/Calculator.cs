@@ -9,7 +9,9 @@ public class Calculator
     /// </summary>
     public object Add(string numbers)
     {
-        var splitNumbers = numbers.Split(',');
+        var splitNumbers = numbers.Split(
+            new char[] {','},
+            StringSplitOptions.RemoveEmptyEntries);
 
         if (!splitNumbers.Any())
         {
@@ -18,10 +20,6 @@ public class Calculator
 
         if (splitNumbers.Length == 1)
         {
-            if (splitNumbers[0].Length == 0)
-            {
-                return 0;
-            }
             return int.Parse(splitNumbers[0]);
         }
 
