@@ -3,6 +3,13 @@
 namespace TDD_Katas;
 public class Calculator
 {
+    public Calculator(string calculationString)
+    {
+        this.calculationString = calculationString;
+    }
+
+    private string calculationString;
+
     private List<string> delimiters = new List<string> { ",", "\n" };
 
     private string numbersString = "";
@@ -39,11 +46,11 @@ public class Calculator
     ///     one char
     /// </summary>
     /// <see cref="https://osherove.com/tdd-kata-1/"/>
-    public object Add(string calculationString)
+    public object Add()
     {
         if (!string.IsNullOrWhiteSpace(calculationString))
         {
-            SeperateNumbersAndDelimiters(calculationString);
+            SeperateNumbersAndDelimitersFromCalculationString();
 
             ConvertStringOfNumbersToListOfInts();
 
@@ -57,7 +64,7 @@ public class Calculator
         return 0;  
     }
 
-    private void SeperateNumbersAndDelimiters(string calculationString)
+    private void SeperateNumbersAndDelimitersFromCalculationString()
     {
         numbersString = calculationString;
 

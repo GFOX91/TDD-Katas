@@ -15,10 +15,10 @@ public class CalculatorTests
     public void Add_AddsUpToTwoNumbers_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(expected);
@@ -35,10 +35,10 @@ public class CalculatorTests
     public void Add_AddsUpToAnyNumbers_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(expected);
@@ -54,10 +54,10 @@ public class CalculatorTests
     public void Add_ReturnsZero_WhenStringIsNullOrEmpty(string numbers)
     {
         // Arrange 
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(0);
@@ -73,10 +73,10 @@ public class CalculatorTests
     public void Add_AddsNumbersUsingNewLineDelimiter_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(expected);
@@ -95,10 +95,10 @@ public class CalculatorTests
     public void Add_AddsNumbersUsingCustomDelimiter_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(expected);
@@ -115,10 +115,10 @@ public class CalculatorTests
     public void Add_ShouldThrowAnException_WhenNegativeNumbersAreUsed(string numbers, string negativeNumbers)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = () => sut.Add(numbers);
+        var result = () => sut.Add();
 
         // Assert
         result.Should().Throw<Exception>().WithMessage($"Negatives are not allowed: {negativeNumbers}");
@@ -134,10 +134,10 @@ public class CalculatorTests
     public void Add_AddsNumbersBiggerThan1000AreIgnored_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(expected);
@@ -153,10 +153,10 @@ public class CalculatorTests
     public void Add_AddsNumbersUsingDelimiterOfAnyLength_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(expected);
@@ -179,10 +179,10 @@ public class CalculatorTests
     public void Add_AddsNumbersUsingMultipleDelimiters_WhenStringIsValid(string numbers, int expected)
     {
         // Arrange
-        var sut = new Calculator();
+        var sut = new Calculator(numbers);
 
         // Act
-        var result = sut.Add(numbers);
+        var result = sut.Add();
 
         // Assert
         result.Should().Be(expected);
