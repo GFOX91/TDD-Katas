@@ -12,7 +12,7 @@ public class Calculator
 
     private List<string> delimiters = new List<string> { ",", "\n" };
 
-    private string numbersString = "";
+    private string numbers = "";
 
     private IEnumerable<int> numbersToBeCalculated = new List<int>();
 
@@ -66,21 +66,21 @@ public class Calculator
 
     private void SeperateNumbersAndDelimitersFromCalculationString()
     {
-        numbersString = calculationString;
+        numbers = calculationString;
 
         if (calculationString.StartsWith("//"))
         {
             // splits the input on the delimiter
-            var (delimiters, numbers) = SplitDelmitersAndNumbers(numbersString);
+            var (seperatedDelimiters, separatedNumbers) = SplitDelmitersAndNumbers(calculationString);
 
             // update numbers string to only include numbers
-            numbersString = numbers; 
+            numbers = separatedNumbers; 
 
-            ProcessDelimiters(delimiters);
+            ProcessDelimiters(seperatedDelimiters);
         }
     }
 
-    private(string delimiters, string numbers) SplitDelmitersAndNumbers(string calculationString)
+    private(string seperatedDelimiters, string seperatedNumbers) SplitDelmitersAndNumbers(string calculationString)
     {
         var splitOnFirstNewLine = calculationString.Split(new char[] { '\n' }, 2);
 
@@ -115,7 +115,7 @@ public class Calculator
     }
 
     private IEnumerable<int> ConvertStringOfNumbersToListOfInts() => 
-        numbersToBeCalculated = numbersString
+        numbersToBeCalculated = numbers
         .Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
         .Select(int.Parse);
 
