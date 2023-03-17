@@ -1,6 +1,10 @@
 ﻿namespace TDD_Katas;
 public class Calculator
 {
+    private List<String> delimiters = new List<string> { ",", "\n" };
+
+
+
     /// <summary>
     /// Create a simple String calculator with a method signature: int Add(string numbers)
     ///     1. The method can any amount of numbers, separated by commas, and will return their sum.
@@ -33,8 +37,6 @@ public class Calculator
     /// <see cref="https://osherove.com/tdd-kata-1/"/>
     public object Add(string numbers)
     {
-        var delimiters = new List<string> { ",", "\n" };
-
         if (string.IsNullOrWhiteSpace(numbers))
         {
             return 0;
@@ -67,7 +69,7 @@ public class Calculator
 
         #region SplitNumbers
 
-        var splitNumbers = SplitStringIntoNumbersList(numbers, delimiters);
+        SplitStringIntoNumbersList(numbers, delimiters, out var splitNumbers);
 
         #endregion
 
@@ -82,12 +84,11 @@ public class Calculator
         splitNumbers = splitNumbers.Where(x => x < 1001).ToArray();
         #endregion
 
-
         return splitNumbers.Sum();
     }
 
-    private IEnumerable<int> SplitStringIntoNumbersList(string numbers, List<string> delimiters) => 
-        numbers.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+    private IEnumerable<int> SplitStringIntoNumbersList(string numbers, List<string> delimiters, out IEnumerable<int> splitNumbers) => 
+        splitNumbers = numbers.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
         .Select(int.Parse);
 
     private void ThrowExceptionIfAnyNegatives(IEnumerable<int> numbers)
