@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace TDD_Katas;
+﻿namespace TDD_Katas;
 public class Calculator
 {
     public Calculator(string calculationString)
@@ -52,7 +50,7 @@ public class Calculator
         {
             SeperateNumbersAndDelimitersFromCalculationString();
 
-            ConvertStringOfNumbersToListOfInts();
+            ConvertSeperatedNumbersToListOfInts();
 
             ThrowExceptionIfAnyNegativeNumbers();
 
@@ -114,7 +112,7 @@ public class Calculator
         }
     }
 
-    private IEnumerable<int> ConvertStringOfNumbersToListOfInts() => 
+    private IEnumerable<int> ConvertSeperatedNumbersToListOfInts() => 
         numbersToBeCalculated = numbers
         .Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
         .Select(int.Parse);
