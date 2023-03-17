@@ -36,36 +36,16 @@ public class Calculator
     public object Add(string numbers)
     {
         if (string.IsNullOrWhiteSpace(numbers))
-        {
             return 0;
-        }
-
-        #region Process Delimiters 
 
         if (numbers.StartsWith("//"))
-        {
             numbers = ProcessAdditionalDelimiters(numbers);
-        }
-
-        #endregion
-
-        #region SplitNumbers
 
         SplitStringIntoNumbersList(numbers, delimiters, out var splitNumbers);
 
-        #endregion
-
-        #region Check for negatives
-
         ThrowExceptionIfAnyNegatives(splitNumbers);
 
-        #endregion
-
-        #region Remove numbers greater then 1000
-
         splitNumbers = splitNumbers.Where(x => x < 1001).ToArray();
-
-        #endregion
 
         return splitNumbers.Sum();
     }
@@ -76,21 +56,28 @@ public class Calculator
         var customDelimitersString = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter(s)
 
         var splitDelimitersString = customDelimitersString.Replace("][", "]-["); // add a seperator between delimiters
-        var splitDelimiters = splitDelimitersString.Split('-'); // so that we can split the delimiters into seperate strings
+        var splitDelimiters = splitDelimitersString.Split('-').ToList(); // so that we can split the delimiters into seperate strings
 
-        foreach (var delimiter in splitDelimiters)
-        {
-            var delmitorToAdd = delimiter;
-            if (delimiter.StartsWith('[') && delimiter.EndsWith(']'))
-            {
-                delmitorToAdd = delimiter.Split('[', ']')[1]; // extract customer delimiter from square brackets
-            }
+        numbers = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
 
-            delimiters.Add(delmitorToAdd); // and add it to the delimiter list
-            numbers = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
-        }
+        AddAdditionalProccessedDelimiters(splitDelimiters);
 
         return numbers;
+    }
+
+    private void AddAdditionalProccessedDelimiters(List<string> processedDelimiters)
+    {
+        foreach (var delimiter in processedDelimiters)
+        {
+            var delmitorToAdd = delimiter;
+
+            // Remove square brackest from delimiter
+            if (delimiter.StartsWith('[') && delimiter.EndsWith(']'))
+                delmitorToAdd = delimiter.Split('[', ']')[1];
+
+            // and add it to the delimiter list
+            delimiters.Add(delmitorToAdd); 
+        }
     }
 
     private IEnumerable<int> SplitStringIntoNumbersList(string numbers, List<string> delimiters, out IEnumerable<int> splitNumbers) => 
