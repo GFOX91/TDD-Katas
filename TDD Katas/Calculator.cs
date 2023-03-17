@@ -1,9 +1,7 @@
 ﻿namespace TDD_Katas;
 public class Calculator
 {
-    private List<String> delimiters = new List<string> { ",", "\n" };
-
-
+    private List<string> delimiters = new List<string> { ",", "\n" };
 
     /// <summary>
     /// Create a simple String calculator with a method signature: int Add(string numbers)
@@ -46,23 +44,7 @@ public class Calculator
 
         if (numbers.StartsWith("//"))
         {
-            var splitOnFirstNewLine = numbers.Split(new char[] { '\n' }, 2); // splits the input on the delimiter
-            var customDelimitersString = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter(s)
-
-            var splitDelimitersString = customDelimitersString.Replace("][", "]-["); // add a seperator between delimiters
-            var splitDelimiters = splitDelimitersString.Split('-'); // so that we can split the delimiters into seperate strings
-
-            foreach (var delimiter in splitDelimiters)
-            {
-                var delmitorToAdd = delimiter;
-                if (delimiter.StartsWith('[') && delimiter.EndsWith(']'))
-                {
-                    delmitorToAdd = delimiter.Split('[', ']')[1]; // extract customer delimiter from square brackets
-                }
-
-                delimiters.Add(delmitorToAdd); // and add it to the delimiter list
-                numbers = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
-            }
+            numbers = ProcessAdditionalDelimiters(numbers);
         }
 
         #endregion
@@ -80,11 +62,35 @@ public class Calculator
         #endregion
 
         #region Remove numbers greater then 1000
-        // Remove numbers bigger then 1000
+
         splitNumbers = splitNumbers.Where(x => x < 1001).ToArray();
+
         #endregion
 
         return splitNumbers.Sum();
+    }
+
+    private string ProcessAdditionalDelimiters(string numbers)
+    {
+        var splitOnFirstNewLine = numbers.Split(new char[] { '\n' }, 2); // splits the input on the delimiter
+        var customDelimitersString = splitOnFirstNewLine[0].Replace("//", string.Empty); // Grabs the custom delimiter(s)
+
+        var splitDelimitersString = customDelimitersString.Replace("][", "]-["); // add a seperator between delimiters
+        var splitDelimiters = splitDelimitersString.Split('-'); // so that we can split the delimiters into seperate strings
+
+        foreach (var delimiter in splitDelimiters)
+        {
+            var delmitorToAdd = delimiter;
+            if (delimiter.StartsWith('[') && delimiter.EndsWith(']'))
+            {
+                delmitorToAdd = delimiter.Split('[', ']')[1]; // extract customer delimiter from square brackets
+            }
+
+            delimiters.Add(delmitorToAdd); // and add it to the delimiter list
+            numbers = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
+        }
+
+        return numbers;
     }
 
     private IEnumerable<int> SplitStringIntoNumbersList(string numbers, List<string> delimiters, out IEnumerable<int> splitNumbers) => 
