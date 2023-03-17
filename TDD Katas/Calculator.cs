@@ -73,13 +73,7 @@ public class Calculator
 
         #region Check for negatives
 
-        var negativeNumbers = splitNumbers.Where(x => x < 0).ToArray();
-
-        // If any are found, throw an exception
-        if (negativeNumbers.Any())
-        {
-            throw new Exception($"Negatives are not allowed: {string.Join(",", negativeNumbers)}");
-        }
+        ThrowExceptionIfAnyNegatives(splitNumbers);
 
         #endregion
 
@@ -95,5 +89,16 @@ public class Calculator
     private IEnumerable<int> SplitStringIntoNumbersList(string numbers, List<string> delimiters) => 
         numbers.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
         .Select(int.Parse);
+
+    private void ThrowExceptionIfAnyNegatives(IEnumerable<int> numbers)
+    {
+        var negativeNumbers = numbers.Where(x => x < 0).ToArray();
+
+        // If any are found, throw an exception
+        if (negativeNumbers.Any())
+        {
+            throw new Exception($"Negatives are not allowed: {string.Join(",", negativeNumbers)}");
+        }
+    }
 
 }
