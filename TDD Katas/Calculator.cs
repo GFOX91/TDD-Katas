@@ -43,7 +43,7 @@ public class Calculator
     {
         if (!string.IsNullOrWhiteSpace(calculationString))
         {
-            ProcessNumbersAndDelimiters(calculationString);
+            SeperateNumbersAndDelimiters(calculationString);
 
             ConvertStringOfNumbersToListOfInts();
 
@@ -57,7 +57,7 @@ public class Calculator
         return 0;  
     }
 
-    private void ProcessNumbersAndDelimiters(string calculationString)
+    private void SeperateNumbersAndDelimiters(string calculationString)
     {
         numbersString = calculationString;
 
