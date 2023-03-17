@@ -4,6 +4,23 @@ namespace UnitTests;
 
 public class CalculatorTests
 {
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData(null)]
+    public void Add_ReturnsZero_WhenStringIsNullOrEmpty(string numbers)
+    {
+        // Arrange 
+        var sut = new Calculator();
+
+        // Act
+        var result = sut.Add(numbers);
+
+        // Assert
+        result.Should().Be(0);
+    }
+
     [Theory]
     [InlineData("", 0)]
     [InlineData("1", 1)]
