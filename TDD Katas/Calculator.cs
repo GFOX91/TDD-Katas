@@ -33,12 +33,14 @@ public class Calculator
     /// <see cref="https://osherove.com/tdd-kata-1/"/>
     public object Add(string numbers)
     {
+        var delimiters = new List<string> { ",", "\n" };
+
         if (string.IsNullOrWhiteSpace(numbers))
         {
             return 0;
         }
 
-        var delimiters = new List<string> {",", "\n" };
+        #region Process Delimiters 
 
         if (numbers.StartsWith("//"))
         {
@@ -61,9 +63,15 @@ public class Calculator
             }
         }
 
-        var splitNumbers = numbers
-            .Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse);
+        #endregion
+
+        #region SplitNumbers
+
+        var splitNumbers = SplitStringIntoNumbersList(numbers, delimiters);
+
+        #endregion
+
+        #region Check for negatives
 
         var negativeNumbers = splitNumbers.Where(x => x < 0).ToArray();
 
@@ -73,9 +81,19 @@ public class Calculator
             throw new Exception($"Negatives are not allowed: {string.Join(",", negativeNumbers)}");
         }
 
+        #endregion
+
+        #region Remove numbers greater then 1000
         // Remove numbers bigger then 1000
         splitNumbers = splitNumbers.Where(x => x < 1001).ToArray();
+        #endregion
+
 
         return splitNumbers.Sum();
     }
+
+    private IEnumerable<int> SplitStringIntoNumbersList(string numbers, List<string> delimiters) => 
+        numbers.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+        .Select(int.Parse);
+
 }
