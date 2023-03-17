@@ -1,7 +1,13 @@
-﻿namespace TDD_Katas;
+﻿using System.Globalization;
+
+namespace TDD_Katas;
 public class Calculator
 {
     private List<string> delimiters = new List<string> { ",", "\n" };
+
+    private string numbersString = "";
+
+    private IEnumerable<int> numbersToBeCalculated = new List<int>();
 
     /// <summary>
     /// Create a simple String calculator with a method signature: int Add(string numbers)
@@ -35,44 +41,55 @@ public class Calculator
     /// <see cref="https://osherove.com/tdd-kata-1/"/>
     public object Add(string calculationString)
     {
-        if (string.IsNullOrWhiteSpace(calculationString))
-            return 0;
+        if (!string.IsNullOrWhiteSpace(calculationString))
+        {
+            ProcessNumbersAndDelimiters(calculationString);
 
-        ProcessAnyAdditionalDelimiters(calculationString, out string numbersToBeCalculatedString);
+            ConvertStringOfNumbersToListOfInts();
 
-        ConvertStringOfNumbersToListOfInts(numbersToBeCalculatedString, delimiters, out var numbersList);
+            ThrowExceptionIfAnyNegativeNumbers();
 
-        ThrowExceptionIfAnyNegatives(numbersList);
+            RemoveNumbersThatExceed1000();
 
-        numbersList = numbersList.Where(x => x < 1001).ToArray();
-
-        return numbersList.Sum();
+            return numbersToBeCalculated.Sum();
+        }
+            
+        return 0;  
     }
 
-    private string ProcessAnyAdditionalDelimiters(string calculationString, out string numbersToBeCalculated)
+    private void ProcessNumbersAndDelimiters(string calculationString)
     {
-        numbersToBeCalculated = calculationString;
+        numbersString = calculationString;
 
         if (calculationString.StartsWith("//"))
         {
             // splits the input on the delimiter
-            var splitOnFirstNewLine = calculationString.Split(new char[] { '\n' }, 2);
+            var (delimiters, numbers) = SplitDelmitersAndNumbers(numbersString);
 
-            // Grabs the custom delimiter(s)
-            var customDelimitersString = splitOnFirstNewLine[0].Replace("//", string.Empty);
+            // update numbers string to only include numbers
+            numbersString = numbers; 
 
-            // add a seperator if multiple delimiters
-            var splitDelimitersString = customDelimitersString.Replace("][", "]-[");
-            // In order to split the delimiters into seperate strings
-            var splitDelimiters = splitDelimitersString.Split('-').ToList();
-
-            numbersToBeCalculated = splitOnFirstNewLine[1]; // mutate the incoming string to just get the numbers
-
-            if (splitDelimiters.Any())
-                AddAdditionalDelimiters(splitDelimiters);
+            ProcessDelimiters(delimiters);
         }
-      
-        return numbersToBeCalculated;
+    }
+
+    private(string delimiters, string numbers) SplitDelmitersAndNumbers(string calculationString)
+    {
+        var splitOnFirstNewLine = calculationString.Split(new char[] { '\n' }, 2);
+
+        return (splitOnFirstNewLine[0].Replace("//", string.Empty), // Remove beggining slashes from delimiters
+                splitOnFirstNewLine[1]);
+    }
+
+    private void ProcessDelimiters(string delimiters)
+    {
+        // add a seperator if multiple delimiters
+        var splitDelimitersString = delimiters.Replace("][", "]-[");
+        // In order to split the delimiters into seperate strings
+        var splitDelimiters = splitDelimitersString.Split('-').ToList();
+
+        if (splitDelimiters.Any())
+            AddAdditionalDelimiters(splitDelimiters);
     }
 
     private void AddAdditionalDelimiters(List<string> processedDelimiters)
@@ -90,18 +107,21 @@ public class Calculator
         }
     }
 
-    private IEnumerable<int> ConvertStringOfNumbersToListOfInts(string numbers, List<string> delimiters, out IEnumerable<int> numbersList) => 
-        numbersList = numbers.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
+    private IEnumerable<int> ConvertStringOfNumbersToListOfInts() => 
+        numbersToBeCalculated = numbersString
+        .Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries)
         .Select(int.Parse);
 
-    private void ThrowExceptionIfAnyNegatives(IEnumerable<int> numbers)
+    private void ThrowExceptionIfAnyNegativeNumbers()
     {
-        var negativeNumbers = numbers.Where(x => x < 0).ToArray();
+        var negativeNumbers = numbersToBeCalculated.Where(x => x < 0).ToArray();
 
-        // If any are found, throw an exception
         if (negativeNumbers.Any())
         {
             throw new Exception($"Negatives are not allowed: {string.Join(",", negativeNumbers)}");
         }
     }
+
+    private void RemoveNumbersThatExceed1000() => numbersToBeCalculated = numbersToBeCalculated.Where(x => x < 1001).ToArray();
+
 }
