@@ -83,7 +83,7 @@ public class Calculator
 
     private void ProcessDelimiters(string delimiters)
     {
-        // add a seperator if multiple delimiters
+        // add a seperator if there are multiple delimiters
         var splitDelimitersString = delimiters.Replace("][", "]-[");
         // In order to split the delimiters into seperate strings
         var splitDelimiters = splitDelimitersString.Split('-').ToList();
