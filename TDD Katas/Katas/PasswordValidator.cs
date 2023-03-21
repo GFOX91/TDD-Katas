@@ -42,7 +42,8 @@ public class PasswordValidator
             return new ValidationResult(errorMessage);
         }
 
-        return ValidationResult.Success;
+        var success = ValidationResult.Success;
+        return success;
     }
 
     private List<string> ReturnValidationErrors(string password)
@@ -75,7 +76,6 @@ public class PasswordValidator
     private bool PasswordHasLessThan2Numbers(string password) => !Regex.IsMatch(password, "\\d.*?\\d");
     private bool PasswordHasNoCapitals(string password) => !password.Any(c => char.IsUpper(c));
     private bool PasswordHasNoSpecialCharacters(string password) => Regex.IsMatch(password, "^[a-zA-Z0-9\x20]+$");
-
     private string ProcessValidationErrors(List<string> validationErrors, out string errorMessage)
     {
         errorMessage = "";
