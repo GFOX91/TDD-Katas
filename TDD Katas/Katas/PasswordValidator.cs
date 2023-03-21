@@ -32,11 +32,13 @@ public class PasswordValidator
             return new ValidationResult("Password must be at least 8 characters");
         }
 
-        if (!Regex.IsMatch(password, "\\d.*?\\d"))
+        if (PasswordHasLessThan2Numbers(password))
         {
             return new ValidationResult("The password must contain at least 2 numbers");
         }
 
         return ValidationResult.Success;
     }
+
+    private bool PasswordHasLessThan2Numbers(string password) => !Regex.IsMatch(password, "\\d.*?\\d");
 }

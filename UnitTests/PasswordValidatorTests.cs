@@ -29,7 +29,7 @@ public class PasswordValidatorTests
     [Theory]
     [InlineData("password")]
     [InlineData("password1")]
-    [InlineData("password12")]
+    [InlineData("1password")]
     public void Validate_ReturnsInvalid_WhenPasswordDoesntHave2Numbers(string password)
     {
         // arrange
