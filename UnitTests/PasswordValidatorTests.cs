@@ -18,12 +18,10 @@ public class PasswordValidatorTests
         // arrange
         var sut = new PasswordValidator();
 
-        var validationResult = new ValidationResult("Password must be at least 8 characters");
-
         // act
         var result = sut.Validate(password);
 
-        // assert 
-        result.Should().Be(validationResult);
+        // assert
+        result.ErrorMessage.Should().Be("Password must be at least 8 characters");
     }
 }

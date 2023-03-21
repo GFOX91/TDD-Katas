@@ -21,7 +21,7 @@ namespace TDD_Katas;
 /// 
 /// 4. For numbers that are multiples of both three and five return “FizzBuzz”.
 /// 
-//<see cref = "https://tddmanifesto.com/exercises/" />
+///<see cref = "https://tddmanifesto.com/exercises/" />
 public class FizzBuzz
 {
     public string print(int number)

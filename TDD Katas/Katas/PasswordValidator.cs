@@ -17,11 +17,17 @@ namespace TDD_Katas.Katas;
 /// 1. The password must be at least 8 characters long. If it is not met, 
 /// then the following error message should be returned: “Password must be at least 8 characters”
 /// </summary>
+/// <see cref = "https://tddmanifesto.com/exercises/" />
 public class PasswordValidator
 {
 
     public ValidationResult Validate(string password)
     {
+        if (password.Length < 8)
+        {
+            return new ValidationResult("Password must be at least 8 characters");
+        }
+
         return ValidationResult.Success;
     }
 }
