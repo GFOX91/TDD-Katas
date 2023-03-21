@@ -10,7 +10,7 @@ public class FizzBuzzTests
 {
     [Theory]
     [InlineData(4, "4")]
-    [InlineData(5, "5")]
+    [InlineData(7, "7")]
     [InlineData(8, "8")]
     public void Print_ReturnsNumberAsString(int number, string output)
     {
@@ -43,7 +43,7 @@ public class FizzBuzzTests
     [Theory]
     [InlineData(5)]
     [InlineData(10)]
-    [InlineData(15)]
+    [InlineData(20)]
     public void Print_ReturnsBuzz_WhenNumberMultipleOfFive(int number)
     {
         // Arrange
