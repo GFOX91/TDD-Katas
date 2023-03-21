@@ -11,8 +11,8 @@ namespace UnitTests;
 public class PasswordValidatorTests
 {
     [Theory]
-    [InlineData("pass12")]
-    [InlineData("passw12")]
+    [InlineData("Pass12")]
+    [InlineData("Passw12")]
     public void Validate_ReturnsInvalid_WhenPasswordLessThen8Characters(string password)
     {
         // arrange
@@ -26,9 +26,9 @@ public class PasswordValidatorTests
     }
 
     [Theory]
-    [InlineData("password")]
-    [InlineData("password1")]
-    [InlineData("1password")]
+    [InlineData("Password")]
+    [InlineData("Password1")]
+    [InlineData("1Password")]
     public void Validate_ReturnsInvalid_WhenPasswordDoesntHave2Numbers(string password)
     {
         // arrange
@@ -39,6 +39,21 @@ public class PasswordValidatorTests
 
         // assert
         result.ErrorMessage.Should().Be("The password must contain at least 2 numbers");
+    }
+
+    [Theory]
+    [InlineData("password1")]
+    [InlineData("password2")]
+    public void Validate_ReturnsInvalid_WhenNoCapitalLetter(string password)
+    {
+        // arrange
+        var sut = new PasswordValidator();
+
+        // act
+        var result = sut.Validate(password);
+
+        // assert
+        result.ErrorMessage.Should().Be("password must contain at least one capital letter");
     }
 
     [Theory]
