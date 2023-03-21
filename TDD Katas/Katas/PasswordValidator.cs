@@ -30,6 +30,21 @@ public class PasswordValidator
 
     public ValidationResult Validate(string password)
     {
+        var validationErrors = ReturnValidationErrors(password);
+
+        ProcessValidationErrors(validationErrors, out var errorMessage);
+
+
+        if (!string.IsNullOrEmpty(errorMessage)) 
+        {
+            return new ValidationResult(errorMessage);
+        }
+
+        return ValidationResult.Success;
+    }
+
+    private List<string> ReturnValidationErrors(string password)
+    {
         var validationErrors = new List<string>();
 
         if (string.IsNullOrEmpty(password) || password.Length < 8)
@@ -42,15 +57,7 @@ public class PasswordValidator
             validationErrors.Add("The password must contain at least 2 numbers");
         }
 
-        ProcessValidationErrors(validationErrors, out var errorMessage);
-
-
-        if (!string.IsNullOrEmpty(errorMessage)) 
-        {
-            return new ValidationResult(errorMessage);
-        }
-
-        return ValidationResult.Success;
+        return validationErrors;
     }
 
     private bool PasswordHasLessThan2Numbers(string password) => !Regex.IsMatch(password, "\\d.*?\\d");
