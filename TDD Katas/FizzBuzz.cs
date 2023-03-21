@@ -17,6 +17,8 @@ namespace TDD_Katas;
 /// 
 /// 2. For multiples of three return “Fizz” instead of the number
 /// 
+/// 3. For the multiples of five return “Buzz”
+/// 
 //<see cref = "https://tddmanifesto.com/exercises/" />
 public class FizzBuzz
 {

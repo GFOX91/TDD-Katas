@@ -39,4 +39,20 @@ public class FizzBuzzTests
         // Assert
         result.Should().Be("Fizz");
     }
+
+    [Theory]
+    [InlineData(5)]
+    [InlineData(10)]
+    [InlineData(15)]
+    public void Print_ReturnsBuzz_WhenNumberMultipleOfFive(int number)
+    {
+        // Arrange
+        var sut = new FizzBuzz();
+
+        // Act
+        var result = sut.print(number);
+
+        // Assert
+        result.Should().Be("Buzz");
+    }
 }
