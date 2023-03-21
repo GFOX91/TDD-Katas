@@ -25,4 +25,19 @@ public class PasswordValidatorTests
         // assert
         result.ErrorMessage.Should().Be("Password must be at least 8 characters");
     }
+
+    [Theory]
+    [InlineData("password")]
+    [InlineData("password1")]
+    public void Validate_ReturnsInvalid_WhenPasswordDoesntHave2Numbers(string password)
+    {
+        // arrange
+        var sut = new PasswordValidator();
+
+        // act
+        var result = sut.Validate(password);
+
+        // assert
+        result.ErrorMessage.Should().Be("The password must contain at least 2 numbers");
+    }
 }
