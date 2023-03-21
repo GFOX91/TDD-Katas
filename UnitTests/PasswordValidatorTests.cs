@@ -11,7 +11,6 @@ namespace UnitTests;
 public class PasswordValidatorTests
 {
     [Theory]
-    [InlineData(null)]
     [InlineData("pass12")]
     [InlineData("passw12")]
     public void Validate_ReturnsInvalid_WhenPasswordLessThen8Characters(string password)

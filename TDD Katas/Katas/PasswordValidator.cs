@@ -30,14 +30,36 @@ public class PasswordValidator
 
     public ValidationResult Validate(string password)
     {
+        var validationErrors = new List<string>();
+
         if (string.IsNullOrEmpty(password) || password.Length < 8)
         {
-            return new ValidationResult("Password must be at least 8 characters");
+            validationErrors.Add("Password must be at least 8 characters");
         }
 
         if (PasswordHasLessThan2Numbers(password))
         {
-            return new ValidationResult("The password must contain at least 2 numbers");
+            validationErrors.Add("The password must contain at least 2 numbers");
+        }
+
+        string errorMessage = "";
+
+        if (validationErrors.Any())
+        {
+            for (int i = 0; i < validationErrors.Count; i++)
+            {
+                if (i > 0)
+                {
+                    errorMessage += "\n";
+                }
+
+                errorMessage += validationErrors[i];
+            }
+        }
+
+        if (!string.IsNullOrEmpty(errorMessage)) 
+        {
+            return new ValidationResult(errorMessage);
         }
 
         return ValidationResult.Success;
