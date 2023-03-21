@@ -23,7 +23,7 @@ public class PasswordValidator
 
     public ValidationResult Validate(string password)
     {
-        if (password.Length < 8)
+        if (string.IsNullOrEmpty(password) || password.Length < 8)
         {
             return new ValidationResult("Password must be at least 8 characters");
         }
