@@ -59,10 +59,16 @@ public class PasswordValidator
             validationErrors.Add("The password must contain at least 2 numbers");
         }
 
+        if (PasswordHasNoCapitals(password))
+        {
+            validationErrors.Add("password must contain at least one capital letter");
+        }
+
         return validationErrors;
     }
 
     private bool PasswordHasLessThan2Numbers(string password) => !Regex.IsMatch(password, "\\d.*?\\d");
+    private bool PasswordHasNoCapitals(string password) => !password.Any(c => char.IsUpper(c));
 
     private string ProcessValidationErrors(List<string> validationErrors, out string errorMessage)
     {

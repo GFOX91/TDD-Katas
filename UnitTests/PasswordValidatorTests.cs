@@ -42,8 +42,8 @@ public class PasswordValidatorTests
     }
 
     [Theory]
-    [InlineData("password1")]
-    [InlineData("password2")]
+    [InlineData("password12")]
+    [InlineData("password21")]
     public void Validate_ReturnsInvalid_WhenNoCapitalLetter(string password)
     {
         // arrange
@@ -64,10 +64,14 @@ public class PasswordValidatorTests
         // arrange
         var sut = new PasswordValidator();
 
+
         // act
         var result = sut.Validate(password);
 
         // assert
-        result.ErrorMessage.Should().Be("Password must be at least 8 characters\nThe password must contain at least 2 numbers");
+        result.ErrorMessage.Should().Be(
+            "Password must be at least 8 characters" +
+            "\nThe password must contain at least 2 numbers" +
+            "\npassword must contain at least one capital letter");
     }
 }
