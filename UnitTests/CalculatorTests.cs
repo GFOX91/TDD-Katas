@@ -7,6 +7,7 @@ public class CalculatorTests
     /// <summary>
     /// 1. The method can take 2 numbers, separated by commas, and will return their sum.
     /// For example “” or “1” or “1,2” as inputs.
+    /// 
     /// </summary>
     [Theory]
     [InlineData("", 0)]

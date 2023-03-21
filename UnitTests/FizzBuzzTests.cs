@@ -9,9 +9,9 @@ namespace UnitTests;
 public class FizzBuzzTests
 {
     [Theory]
-    [InlineData(3, "3")]
+    [InlineData(4, "4")]
     [InlineData(5, "5")]
-    [InlineData(7, "7")]
+    [InlineData(8, "8")]
     public void Print_ReturnsNumberAsString(int number, string output)
     {
         // Arrange
@@ -22,5 +22,21 @@ public class FizzBuzzTests
 
         // Assert
         result.Should().Be(output);
+    }
+
+    [Theory]
+    [InlineData(3)]
+    [InlineData(6)]
+    [InlineData(9)]
+    public void Print_ReturnsFizz_WhenNumberMultipleOfThree(int number)
+    {
+        // Arrange
+        var sut = new FizzBuzz();
+
+        // Act
+        var result = sut.print(number);
+
+        // Assert
+        result.Should().Be("Fizz");
     }
 }
