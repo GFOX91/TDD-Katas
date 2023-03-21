@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TDD_Katas.Katas;
@@ -29,6 +30,11 @@ public class PasswordValidator
         if (string.IsNullOrEmpty(password) || password.Length < 8)
         {
             return new ValidationResult("Password must be at least 8 characters");
+        }
+
+        if (!Regex.IsMatch(password, "\\d.*?\\d"))
+        {
+            return new ValidationResult("The password must contain at least 2 numbers");
         }
 
         return ValidationResult.Success;
