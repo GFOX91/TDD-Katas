@@ -11,9 +11,9 @@ namespace UnitTests;
 public class PasswordValidatorTests
 {
     [Theory]
-    [InlineData("Pass12")]
-    [InlineData("Passw12")]
-    public void Validate_ReturnsInvalid_WhenPasswordLessThen8Characters(string password)
+    [InlineData("Pas@12")]
+    [InlineData("Pass@12")]
+    public void Validate_ReturnsError_WhenPasswordLessThen8Characters(string password)
     {
         // arrange
         var sut = new PasswordValidator();
@@ -26,10 +26,10 @@ public class PasswordValidatorTests
     }
 
     [Theory]
-    [InlineData("Password")]
-    [InlineData("Password1")]
-    [InlineData("1Password")]
-    public void Validate_ReturnsInvalid_WhenPasswordDoesntHave2Numbers(string password)
+    [InlineData("P@ssword")]
+    [InlineData("P@ssword1")]
+    [InlineData("1P@ssword")]
+    public void Validate_ReturnsError_WhenPasswordDoesntHave2Numbers(string password)
     {
         // arrange
         var sut = new PasswordValidator();
@@ -42,9 +42,9 @@ public class PasswordValidatorTests
     }
 
     [Theory]
-    [InlineData("password12")]
-    [InlineData("password21")]
-    public void Validate_ReturnsInvalid_WhenNoCapitalLetter(string password)
+    [InlineData("p@ssword12")]
+    [InlineData("p@ssword21")]
+    public void Validate_ReturnsError_WhenNoCapitalLetter(string password)
     {
         // arrange
         var sut = new PasswordValidator();
@@ -54,6 +54,21 @@ public class PasswordValidatorTests
 
         // assert
         result.ErrorMessage.Should().Be("password must contain at least one capital letter");
+    }
+
+    [Theory]
+    [InlineData("Password12")]
+    [InlineData("Password21")]
+    public void Validate_ReturnsError_WhenNoSpecialCharacter(string password)
+    {
+        // arrange
+        var sut = new PasswordValidator();
+
+        // act
+        var result = sut.Validate(password);
+
+        // assert
+        result.ErrorMessage.Should().Be("password must contain at least one special character");
     }
 
     [Theory]
@@ -72,6 +87,7 @@ public class PasswordValidatorTests
         result.ErrorMessage.Should().Be(
             "Password must be at least 8 characters" +
             "\nThe password must contain at least 2 numbers" +
-            "\npassword must contain at least one capital letter");
+            "\npassword must contain at least one capital letter" +
+            "\npassword must contain at least one special character");
     }
 }
