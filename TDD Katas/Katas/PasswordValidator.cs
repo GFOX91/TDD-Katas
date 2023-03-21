@@ -20,6 +20,9 @@ namespace TDD_Katas.Katas;
 /// 
 /// 2. The password must contain at least 2 numbers. If it is not met, 
 /// then the following error message should be returned: “The password must contain at least 2 numbers”
+/// 
+/// 3. The validation function should handle multiple validation errors.For example, “somepassword” 
+/// should an error message: “Password must be at least 8 characters\nThe password must contain at least 2 numbers”
 /// </summary>
 /// <see cref = "https://tddmanifesto.com/exercises/" />
 public class PasswordValidator
