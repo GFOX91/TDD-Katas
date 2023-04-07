@@ -77,4 +77,23 @@ public class CitySearchTests
         // Assert
         result.Should().BeEquivalentTo(matchingCities);
     }
+
+    /// <summary>
+    /// The search functionality should work also when the search 
+    /// text is just a part of a city name
+    /// </summary>
+    [Fact]
+    public void FindMatchingCities_ReturnsMatchingCities_WhenCityNameContainsSearchText()
+    {
+        // Arrange
+        string searchText = "ape";
+
+        List<string> matchingCities = new List<string>() { "Budapest" };
+
+        // Act
+        var result = _sut.FindMatchingCities(searchText);
+
+        // Assert
+        result.Should().BeEquivalentTo(matchingCities);
+    }
 }
