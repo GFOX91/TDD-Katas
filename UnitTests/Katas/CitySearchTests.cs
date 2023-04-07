@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TDD_Katas.Katas;
-using UnitTests.Fixtures.CitySearch;
+﻿using TDD_Katas.Katas;
 
 namespace UnitTests.Katas;
 public class CitySearchTests
@@ -38,7 +32,7 @@ public class CitySearchTests
         yield return new object[]
         {
             "Ro",
-            new List<string>(){ "Rome, Rotterdam" }
+            new List<string>(){ "Rome", "Rotterdam" }
         };
     }
 

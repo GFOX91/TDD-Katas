@@ -50,6 +50,6 @@ public class CitySearch
         if (string.IsNullOrEmpty(searchText) || searchText.Length < 2 )
             return new List<string>();
 
-        return _cityList;
+        return _cityList.Where(x => x.StartsWith(searchText)).ToList();
     }
 }
