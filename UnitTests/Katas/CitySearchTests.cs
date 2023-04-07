@@ -27,7 +27,7 @@ public class CitySearchTests
         yield return new object[]
         {
             "Ba",
-            new List<string>(){ "Bangkok"}
+            new List<string>(){ "Bangkok", "Dubai" }
         };
         yield return new object[]
         {
@@ -55,7 +55,7 @@ public class CitySearchTests
         yield return new object[]
         {
             "ba",
-            new List<string>(){ "Bangkok"}
+            new List<string>(){ "Bangkok", "Dubai"}
         };
         yield return new object[]
         {

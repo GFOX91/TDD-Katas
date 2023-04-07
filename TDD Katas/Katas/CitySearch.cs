@@ -55,7 +55,7 @@ public class CitySearch
             return new List<string>();
 
         return _cityList
-            .Where(x => x.StartsWith(searchText, StringComparison.OrdinalIgnoreCase))
+            .Where(x => x.Contains(searchText, StringComparison.OrdinalIgnoreCase))
             .ToList();
     }
 }
