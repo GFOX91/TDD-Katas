@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace TDD_Katas.Katas;
 
@@ -42,8 +37,7 @@ public class PasswordValidator
             return new ValidationResult(errorMessage);
         }
 
-        var success = ValidationResult.Success;
-        return success;
+        return ValidationResult.Success;
     }
 
     private List<string> ReturnValidationErrors(string password)
@@ -76,6 +70,7 @@ public class PasswordValidator
     private bool PasswordHasLessThan2Numbers(string password) => !Regex.IsMatch(password, "\\d.*?\\d");
     private bool PasswordHasNoCapitals(string password) => !password.Any(c => char.IsUpper(c));
     private bool PasswordHasNoSpecialCharacters(string password) => Regex.IsMatch(password, "^[a-zA-Z0-9\x20]+$");
+
     private string ProcessValidationErrors(List<string> validationErrors, out string errorMessage)
     {
         errorMessage = "";
