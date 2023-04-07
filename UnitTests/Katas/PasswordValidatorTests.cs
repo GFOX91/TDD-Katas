@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using TDD_Katas.Katas;
 
-namespace UnitTests;
+namespace UnitTests.Katas;
 public class PasswordValidatorTests
 {
     [Theory]

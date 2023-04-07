@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TDD_Katas;
 
-namespace UnitTests;
+namespace UnitTests.Katas;
 public class FizzBuzzTests
 {
     [Theory]

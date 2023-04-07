@@ -1,6 +1,6 @@
 ﻿using TDD_Katas;
 
-namespace UnitTests;
+namespace UnitTests.Katas;
 
 public class CalculatorTests
 {

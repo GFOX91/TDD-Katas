@@ -19,28 +19,30 @@ namespace TDD_Katas.Katas;
 /// 
 /// 1. If the search text is fewer than 2 characters, then should return no results. (It is an optimization feature of the search functionality.)
 /// 
+/// 2. If the search text is equal to or more than 2 characters, then it should return all the city names starting with the exact search text.
+/// 
 /// </summary>
 ///<see cref = "https://tddmanifesto.com/exercises/" />
 public class CitySearch
 {
     private List<string> _cityList = new List<string>
     {
-        "Paris", 
-        "Budapest", 
-        "Skopje", 
-        "Rotterdam", 
-        "Valencia", 
-        "Vancouver", 
         "Amsterdam", 
-        "Vienna", 
-        "Sydney", 
+        "Bangkok", 
+        "Budapest", 
+        "Dubai", 
+        "Hong Kong", 
+        "Istanbul",
         "New York City", 
         "London", 
-        "Bangkok", 
-        "Hong Kong", 
-        "Dubai", 
+        "Paris", 
         "Rome", 
-        "Istanbul"
+        "Rotterdam", 
+        "Skopje", 
+        "Sydney", 
+        "Vancouver", 
+        "Valencia", 
+        "Vienna", 
     };
    
     public List<string> FindMatchingCities(string searchText)
