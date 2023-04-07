@@ -49,4 +49,32 @@ public class CitySearchTests
         // Assert
         result.Should().BeEquivalentTo(matchingCities);
     }
+
+    public static IEnumerable<object[]> GetLowercaseSearchTextAndCorrospondingCities()
+    {
+        yield return new object[]
+        {
+            "ba",
+            new List<string>(){ "Bangkok"}
+        };
+        yield return new object[]
+        {
+            "ro",
+            new List<string>(){ "Rome", "Rotterdam" }
+        };
+    }
+
+    /// <summary>
+    /// 3. The search functionality should be case insensitive
+    /// </summary>
+    [Theory]
+    [MemberData(nameof(GetLowercaseSearchTextAndCorrospondingCities))]
+    public void FindMatchingCities_ReturnsMatchingCities_WhenSearchTextIsLowerCase(string searchText, List<string> matchingCities)
+    {
+        // Act
+        var result = _sut.FindMatchingCities(searchText);
+
+        // Assert
+        result.Should().BeEquivalentTo(matchingCities);
+    }
 }

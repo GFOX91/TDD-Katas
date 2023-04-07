@@ -21,6 +21,7 @@ namespace TDD_Katas.Katas;
 /// 
 /// 2. If the search text is equal to or more than 2 characters, then it should return all the city names starting with the exact search text.
 /// 
+/// 3. The search functionality should be case insensitive
 /// </summary>
 ///<see cref = "https://tddmanifesto.com/exercises/" />
 public class CitySearch
