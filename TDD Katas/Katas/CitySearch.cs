@@ -25,11 +25,13 @@ namespace TDD_Katas.Katas;
 /// 
 /// 4. The search functionality should work also when the search text is just a part of a city name
 ///     For example “ape” should return “Budapest” city
+///     
+/// 5. If the search text is a “*” (asterisk), then it should return all the city names.
 /// </summary>
 ///<see cref = "https://tddmanifesto.com/exercises/" />
 public class CitySearch
 {
-    private List<string> _cityList = new List<string>
+    public List<string> CityList = new List<string>
     {
         "Amsterdam", 
         "Bangkok", 
@@ -48,13 +50,18 @@ public class CitySearch
         "Valencia", 
         "Vienna", 
     };
+
+    private const string _returnAllResultsSearchText = "*";
    
     public List<string> FindMatchingCities(string searchText)
     {
+        if (searchText == _returnAllResultsSearchText)
+            return CityList;
+
         if (string.IsNullOrEmpty(searchText) || searchText.Length < 2 )
             return new List<string>();
 
-        return _cityList
+        return CityList
             .Where(x => x.Contains(searchText, StringComparison.OrdinalIgnoreCase))
             .ToList();
     }

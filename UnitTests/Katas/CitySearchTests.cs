@@ -79,7 +79,7 @@ public class CitySearchTests
     }
 
     /// <summary>
-    /// The search functionality should work also when the search 
+    /// 4. The search functionality should work also when the search 
     /// text is just a part of a city name
     /// </summary>
     [Fact]
@@ -95,5 +95,23 @@ public class CitySearchTests
 
         // Assert
         result.Should().BeEquivalentTo(matchingCities);
+    }
+
+    /// <summary>
+    /// 5. If the search text is a “*” (asterisk), then it should return all the city names.
+    /// </summary>
+    [Fact]
+    public void FindMatchingCities_ReturnsAllCities_WhenSearchTextAsterix()
+    {
+        // Arrange
+        string searchText = "*";
+
+        var fullCityList = _sut.CityList;
+
+        // Act
+        var result = _sut.FindMatchingCities(searchText);
+
+        // Assert
+        result.Should().BeEquivalentTo(fullCityList);
     }
 }
