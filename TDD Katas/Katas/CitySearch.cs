@@ -45,6 +45,9 @@ public class CitySearch
    
     public List<string> FindMatchingCities(string searchText)
     {
+        if (string.IsNullOrEmpty(searchText) || searchText.Length < 2 )
+            return new List<string>();
+
         return _cityList;
     }
 }
