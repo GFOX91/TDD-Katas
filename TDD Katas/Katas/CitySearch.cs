@@ -51,6 +51,8 @@ public class CitySearch
         if (string.IsNullOrEmpty(searchText) || searchText.Length < 2 )
             return new List<string>();
 
-        return _cityList.Where(x => x.StartsWith(searchText)).ToList();
+        return _cityList
+            .Where(x => x.StartsWith(searchText, StringComparison.OrdinalIgnoreCase))
+            .ToList();
     }
 }
